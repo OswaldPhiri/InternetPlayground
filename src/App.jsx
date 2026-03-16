@@ -3,12 +3,17 @@ import React, { useState, useEffect } from 'react';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import Home from './pages/Home';
+import DogPage from './pages/DogPage';
+import FactPage from './pages/FactPage';
+import CountryPage from './pages/CountryPage';
+import SpacePage from './pages/SpacePage';
 import FavoritesPanel from './components/common/FavoritesPanel';
 import HistoryPanel from './components/common/HistoryPanel';
+import { Routes, Route } from 'react-router-dom';
 import { getFromStorage, STORAGE_KEY_FAVORITES, STORAGE_KEY_HISTORY, saveToStorage } from './utils/storage';
 
 function App() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
   const [showFavorites, setShowFavorites] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [favorites, setFavorites] = useState([]);
@@ -19,10 +24,10 @@ function App() {
     setFavorites(getFromStorage(STORAGE_KEY_FAVORITES) || []);
     setHistory(getFromStorage(STORAGE_KEY_HISTORY) || []);
     
-    // Check dark mode preference
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-       setDarkMode(true);
-    }
+    // Check dark mode preference - commented out to default to the new light theme
+    // if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    //    setDarkMode(true);
+    // }
   }, []);
 
   useEffect(() => {
@@ -61,7 +66,13 @@ function App() {
         onOpenHistory={() => { refreshStorage(); setShowHistory(true); }}
       />
       
-      <Home />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dog" element={<DogPage />} />
+        <Route path="/fact" element={<FactPage />} />
+        <Route path="/country" element={<CountryPage />} />
+        <Route path="/space" element={<SpacePage />} />
+      </Routes>
       
       <Footer />
 

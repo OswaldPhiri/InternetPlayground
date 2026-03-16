@@ -6,8 +6,10 @@ import { generateShareLink, copyToClipboard } from '../../utils/helpers';
 import { toggleFavorite, appendToHistory } from '../../utils/storage';
 import Skeleton from '../feedback/Skeleton';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const SpaceCard = ({ initialData }) => {
+  const navigate = useNavigate();
   const [data, setData] = useState(initialData || null);
   const [loading, setLoading] = useState(!initialData);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -51,17 +53,17 @@ const SpaceCard = ({ initialData }) => {
     >
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="text-lg font-bold text-white flex items-center gap-2">
-            <Rocket className="w-5 h-5 text-indigo-400" />
+          <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <Rocket className="w-5 h-5 text-indigo-500 dark:text-indigo-400" />
             Space Image
           </h3>
-          <p className="text-slate-400 text-sm">Explore space</p>
+          <p className="text-slate-600 dark:text-slate-400 text-sm">Explore space</p>
         </div>
         <div className="flex gap-2">
-          <button onClick={handleFavorite} className={`p-2 rounded-full transition-colors ${isFavorite ? 'text-pink-500 bg-pink-500/10' : 'text-slate-400 hover:text-pink-500'}`}>
+          <button onClick={handleFavorite} className={`p-2 rounded-full transition-colors ${isFavorite ? 'text-pink-500 bg-pink-500/10' : 'text-slate-500 dark:text-slate-400 hover:text-pink-500'}`}>
             <Heart className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
           </button>
-          <button onClick={handleShare} className="p-2 rounded-full text-slate-400 hover:text-blue-400 transition-colors">
+          <button onClick={handleShare} className="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
             <Share2 className="w-5 h-5" />
           </button>
         </div>
@@ -83,11 +85,14 @@ const SpaceCard = ({ initialData }) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <div className="relative h-40 w-full rounded-xl overflow-hidden mb-4 bg-slate-800/50">
+              <div 
+                className="relative h-40 w-full rounded-xl overflow-hidden mb-4 bg-slate-200/50 dark:bg-slate-800/50 cursor-pointer"
+                onClick={() => navigate('/space')}
+              >
                 <img src={data?.url} alt={data?.title} className="w-full h-full object-cover" />
               </div>
-              <h4 className="text-lg font-bold text-white mb-2 line-clamp-1">{data?.title}</h4>
-              <p className="text-slate-400 text-sm line-clamp-3 leading-relaxed">
+              <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2 line-clamp-1">{data?.title}</h4>
+              <p className="text-slate-600 dark:text-slate-400 text-sm line-clamp-3 leading-relaxed">
                 {data?.description}
               </p>
             </motion.div>

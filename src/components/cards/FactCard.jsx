@@ -6,8 +6,10 @@ import { copyToClipboard, generateShareLink } from '../../utils/helpers';
 import { toggleFavorite, appendToHistory } from '../../utils/storage';
 import Skeleton from '../feedback/Skeleton';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const FactCard = ({ initialData }) => {
+  const navigate = useNavigate();
   const [data, setData] = useState(initialData || null);
   const [loading, setLoading] = useState(!initialData);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -55,23 +57,26 @@ const FactCard = ({ initialData }) => {
     >
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="text-lg font-bold text-white flex items-center gap-2">
-            <Quote className="w-5 h-5 text-purple-400" />
+          <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <Quote className="w-5 h-5 text-purple-500 dark:text-purple-400" />
             Random Fact
           </h3>
-          <p className="text-slate-400 text-sm">Tell me something useless</p>
+          <p className="text-slate-600 dark:text-slate-400 text-sm">Tell me something useless</p>
         </div>
         <div className="flex gap-2">
-          <button onClick={handleFavorite} className={`p-2 rounded-full transition-colors ${isFavorite ? 'text-pink-500 bg-pink-500/10' : 'text-slate-400 hover:text-pink-500'}`}>
+          <button onClick={handleFavorite} className={`p-2 rounded-full transition-colors ${isFavorite ? 'text-pink-500 bg-pink-500/10' : 'text-slate-500 dark:text-slate-400 hover:text-pink-500'}`}>
             <Heart className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
           </button>
-          <button onClick={handleShare} className="p-2 rounded-full text-slate-400 hover:text-blue-400 transition-colors">
+          <button onClick={handleShare} className="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
             <Share2 className="w-5 h-5" />
           </button>
         </div>
       </div>
 
-      <div className="flex-grow flex items-center justify-center min-h-[120px]">
+      <div 
+        className="flex-grow flex items-center justify-center min-h-[120px] cursor-pointer"
+        onClick={() => navigate('/fact')}
+      >
         {loading ? (
           <div className="w-full space-y-2">
             <Skeleton className="h-4 w-full" />
@@ -85,7 +90,7 @@ const FactCard = ({ initialData }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="text-slate-200 text-lg leading-relaxed italic"
+              className="text-slate-800 dark:text-slate-200 text-lg leading-relaxed italic"
             >
               "{data?.text}"
             </motion.p>
@@ -104,7 +109,7 @@ const FactCard = ({ initialData }) => {
         </button>
         <button 
           onClick={handleCopy}
-          className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl transition-colors"
+          className="p-2 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl transition-colors"
           title="Copy to clipboard"
         >
           <Copy className="w-5 h-5" />

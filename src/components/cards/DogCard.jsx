@@ -6,8 +6,10 @@ import { generateShareLink, copyToClipboard } from '../../utils/helpers';
 import { toggleFavorite, appendToHistory } from '../../utils/storage';
 import Skeleton from '../feedback/Skeleton';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const DogCard = ({ initialData }) => {
+  const navigate = useNavigate();
   const [data, setData] = useState(initialData || null);
   const [loading, setLoading] = useState(!initialData);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -68,23 +70,23 @@ const DogCard = ({ initialData }) => {
     >
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="text-lg font-bold text-white flex items-center gap-2">
-            <Dog className="w-5 h-5 text-blue-400" />
+          <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <Dog className="w-5 h-5 text-blue-500 dark:text-blue-400" />
             Random Dog
           </h3>
-          <p className="text-slate-400 text-sm">Show me a dog</p>
+          <p className="text-slate-600 dark:text-slate-400 text-sm">Show me a dog</p>
         </div>
         <div className="flex gap-2">
-          <button onClick={handleFavorite} className={`p-2 rounded-full transition-colors ${isFavorite ? 'text-pink-500 bg-pink-500/10' : 'text-slate-400 hover:text-pink-500'}`}>
+          <button onClick={handleFavorite} className={`p-2 rounded-full transition-colors ${isFavorite ? 'text-pink-500 bg-pink-500/10' : 'text-slate-500 dark:text-slate-400 hover:text-pink-500'}`}>
             <Heart className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
           </button>
-          <button onClick={handleShare} className="p-2 rounded-full text-slate-400 hover:text-blue-400 transition-colors">
+          <button onClick={handleShare} className="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
             <Share2 className="w-5 h-5" />
           </button>
         </div>
       </div>
 
-      <div className="flex-grow flex items-center justify-center min-h-[200px] relative overflow-hidden rounded-xl bg-slate-800/50">
+      <div className="flex-grow flex items-center justify-center min-h-[200px] relative overflow-hidden rounded-xl bg-slate-200/50 dark:bg-slate-800/50">
         {loading ? (
           <Skeleton className="absolute inset-0 w-full h-full" />
         ) : (
@@ -96,7 +98,8 @@ const DogCard = ({ initialData }) => {
               exit={{ opacity: 0 }}
               src={data?.url} 
               alt="Random dog"
-              className="w-full h-full object-cover aspect-video"
+              className="w-full h-full object-cover aspect-video cursor-pointer"
+              onClick={() => navigate('/dog')}
             />
           </AnimatePresence>
         )}
@@ -113,7 +116,7 @@ const DogCard = ({ initialData }) => {
         </button>
         <button 
           onClick={handleDownload}
-          className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl transition-colors"
+          className="p-2 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl transition-colors"
           title="Download image"
         >
           <Download className="w-5 h-5" />

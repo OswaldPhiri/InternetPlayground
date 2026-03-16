@@ -6,8 +6,10 @@ import { generateShareLink, copyToClipboard } from '../../utils/helpers';
 import { toggleFavorite, appendToHistory } from '../../utils/storage';
 import Skeleton from '../feedback/Skeleton';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const CountryCard = ({ initialData }) => {
+  const navigate = useNavigate();
   const [data, setData] = useState(initialData || null);
   const [loading, setLoading] = useState(!initialData);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -51,17 +53,17 @@ const CountryCard = ({ initialData }) => {
     >
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="text-lg font-bold text-white flex items-center gap-2">
-            <Globe className="w-5 h-5 text-emerald-400" />
+          <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <Globe className="w-5 h-5 text-emerald-500 dark:text-emerald-400" />
             Random Country
           </h3>
-          <p className="text-slate-400 text-sm">Discover a country</p>
+          <p className="text-slate-600 dark:text-slate-400 text-sm">Discover a country</p>
         </div>
         <div className="flex gap-2">
-          <button onClick={handleFavorite} className={`p-2 rounded-full transition-colors ${isFavorite ? 'text-pink-500 bg-pink-500/10' : 'text-slate-400 hover:text-pink-500'}`}>
+          <button onClick={handleFavorite} className={`p-2 rounded-full transition-colors ${isFavorite ? 'text-pink-500 bg-pink-500/10' : 'text-slate-500 dark:text-slate-400 hover:text-pink-500'}`}>
             <Heart className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
           </button>
-          <button onClick={handleShare} className="p-2 rounded-full text-slate-400 hover:text-blue-400 transition-colors">
+          <button onClick={handleShare} className="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
             <Share2 className="w-5 h-5" />
           </button>
         </div>
@@ -82,22 +84,25 @@ const CountryCard = ({ initialData }) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <div className="relative h-32 w-full rounded-xl overflow-hidden mb-4 bg-slate-800/50">
+              <div 
+                className="relative h-32 w-full rounded-xl overflow-hidden mb-4 bg-slate-200/50 dark:bg-slate-800/50 cursor-pointer"
+                onClick={() => navigate('/country')}
+              >
                 <img src={data?.flag} alt={data?.name} className="w-full h-full object-contain p-2" />
               </div>
-              <h4 className="text-xl font-bold text-white mb-2">{data?.name}</h4>
+              <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{data?.name}</h4>
               <div className="grid grid-cols-2 gap-2 text-sm">
                 <div>
-                  <p className="text-slate-400">Capital</p>
-                  <p className="text-slate-200">{data?.capital || 'N/A'}</p>
+                  <p className="text-slate-600 dark:text-slate-400">Capital</p>
+                  <p className="text-slate-800 dark:text-slate-200">{data?.capital || 'N/A'}</p>
                 </div>
                 <div>
-                  <p className="text-slate-400">Region</p>
-                  <p className="text-slate-200">{data?.region}</p>
+                  <p className="text-slate-600 dark:text-slate-400">Region</p>
+                  <p className="text-slate-800 dark:text-slate-200">{data?.region}</p>
                 </div>
                 <div>
-                  <p className="text-slate-400">Population</p>
-                  <p className="text-slate-200">{data?.population.toLocaleString()}</p>
+                  <p className="text-slate-600 dark:text-slate-400">Population</p>
+                  <p className="text-slate-800 dark:text-slate-200">{data?.population.toLocaleString()}</p>
                 </div>
               </div>
               <a 

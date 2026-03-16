@@ -19,16 +19,16 @@ const FavoritesPanel = ({ isOpen, onClose, favorites, onRemove, onOpenItem }) =>
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            className="fixed right-0 top-0 h-full w-full max-w-md bg-slate-900 border-l border-slate-800 shadow-2xl z-[60] p-6 overflow-y-auto"
+            className="fixed right-0 top-0 h-full w-full max-w-md bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 shadow-2xl z-[60] p-6 overflow-y-auto"
           >
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                 <Heart className="w-6 h-6 text-pink-500 fill-current" />
                 Favorites
               </h2>
               <button 
                 onClick={onClose}
-                className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 transition-colors"
+                className="p-2 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg text-slate-500 dark:text-slate-400 transition-colors"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -41,23 +41,23 @@ const FavoritesPanel = ({ isOpen, onClose, favorites, onRemove, onOpenItem }) =>
             ) : (
               <div className="space-y-4">
                 {favorites.map((item) => (
-                  <div key={item.id} className="p-4 bg-slate-800/50 border border-slate-700 rounded-xl flex items-center gap-4 group">
+                  <div key={item.id} className="p-4 bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl flex items-center gap-4 group">
                     <div className="flex-grow">
-                      <p className="text-xs font-semibold text-purple-400 uppercase tracking-wider">{item.type}</p>
-                      <p className="text-slate-200 line-clamp-2 text-sm">
+                      <p className="text-xs font-semibold text-purple-600 dark:text-purple-400 uppercase tracking-wider">{item.type}</p>
+                      <p className="text-slate-800 dark:text-slate-200 line-clamp-2 text-sm">
                         {item.type === 'fact' ? item.text : (item.name || item.title || 'Random Image')}
                       </p>
                     </div>
                     <div className="flex gap-2">
                        <button 
                         onClick={() => onOpenItem(item)}
-                        className="p-2 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-blue-400 transition-colors"
+                        className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                       >
                         <ExternalLink className="w-4 h-4" />
                       </button>
                       <button 
                         onClick={() => onRemove(item)}
-                        className="p-2 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-pink-500 transition-colors"
+                        className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg text-slate-500 dark:text-slate-400 hover:text-pink-600 dark:hover:text-pink-500 transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>

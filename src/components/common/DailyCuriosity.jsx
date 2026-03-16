@@ -44,11 +44,11 @@ const DailyCuriosity = () => {
         
         <div className="flex flex-col md:flex-row gap-6 items-center">
           <div className="flex-grow">
-            <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
-              <Sparkles className="w-6 h-6 text-yellow-400" />
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+              <Sparkles className="w-6 h-6 text-yellow-500 dark:text-yellow-400" />
               Daily Curiosity
             </h2>
-            <p className="text-slate-400 mb-4">Something new to learn every 24 hours.</p>
+            <p className="text-slate-600 dark:text-slate-400 mb-4">Something new to learn every 24 hours.</p>
             
             {loading ? (
               <div className="space-y-2">
@@ -61,10 +61,10 @@ const DailyCuriosity = () => {
                   key={data?.id}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="bg-slate-900/40 p-4 rounded-xl border border-white/5"
+                  className="bg-white/50 dark:bg-slate-900/40 p-4 rounded-xl border border-slate-200 dark:border-white/5"
                 >
-                  <p className="text-xs font-bold text-purple-400 uppercase tracking-widest mb-1">{data?.type}</p>
-                  <p className="text-lg text-slate-100 italic">
+                  <p className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-widest mb-1">{data?.type}</p>
+                  <p className="text-lg text-slate-800 dark:text-slate-100 italic">
                     {data?.type === 'fact' ? data.text : (data?.title || data?.name || "Check out this finding!")}
                   </p>
                 </motion.div>
@@ -79,8 +79,8 @@ const DailyCuriosity = () => {
                data?.url || data?.flag ? (
                  <img src={data.url || data.flag} alt="Curiosity" className="h-32 w-full object-cover rounded-xl shadow-lg" />
                ) : (
-                 <div className="h-32 w-full flex items-center justify-center bg-slate-800 rounded-xl">
-                   <Sparkles className="w-12 h-12 text-slate-600" />
+                 <div className="h-32 w-full flex items-center justify-center bg-slate-200 dark:bg-slate-800 rounded-xl">
+                   <Sparkles className="w-12 h-12 text-slate-400 dark:text-slate-600" />
                  </div>
                )
              )}

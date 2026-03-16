@@ -20,10 +20,10 @@ const Home = () => {
       <DailyCuriosity />
 
       <div className="flex justify-between items-center mx-4 mb-8">
-        <h2 className="text-2xl font-bold text-white">Explore Dashboard</h2>
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Explore Dashboard</h2>
         <button 
           onClick={handleSurpriseMe}
-          className="bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-8 rounded-2xl backdrop-blur-md border border-white/20 flex items-center gap-2 transition-all hover:scale-105 active:scale-95 group shadow-xl"
+          className="bg-white/50 hover:bg-white/60 dark:bg-white/10 dark:hover:bg-white/20 text-slate-900 dark:text-white font-bold py-3 px-8 rounded-2xl backdrop-blur-md border border-slate-300 dark:border-white/20 flex items-center gap-2 transition-all hover:scale-105 active:scale-95 group shadow-xl"
         >
           <Sparkles className="w-5 h-5 text-yellow-400 group-hover:rotate-12 transition-transform" />
           Surprise Me

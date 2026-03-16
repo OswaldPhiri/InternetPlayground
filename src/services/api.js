@@ -2,9 +2,9 @@
 import axios from 'axios';
 
 const FACT_API = 'https://uselessfacts.jsph.pl/api/v2/facts/random';
-const DOG_API = 'https://dog.ceo/api/breeds/image/random';
-const COUNTRY_API = 'https://restcountries.com/v3.1/all';
-const NASA_API = 'https://images-api.nasa.gov/search?q=space&media_type=image';
+const DOG_API = 'https://api.thedogapi.com/v1/images/search';
+const COUNTRY_API = 'https://restcountries.com/v3.1/all?fields=cca3,name,flags,capital,population,region,maps';
+const NASA_API = 'https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&count=1';
 
 export const getRandomFact = async () => {
   const response = await axios.get(FACT_API);
@@ -18,8 +18,8 @@ export const getRandomFact = async () => {
 export const getRandomDog = async () => {
   const response = await axios.get(DOG_API);
   return {
-    id: response.data.message.split('/').pop().split('.')[0],
-    url: response.data.message,
+    id: response.data[0].id,
+    url: response.data[0].url,
     type: 'dog'
   };
 };
@@ -42,13 +42,12 @@ export const getRandomCountry = async () => {
 
 export const getSpaceImage = async () => {
   const response = await axios.get(NASA_API);
-  const items = response.data.collection.items;
-  const item = items[Math.floor(Math.random() * items.length)];
+  const item = response.data[0];
   return {
-    id: item.data[0].nasa_id,
-    title: item.data[0].title,
-    description: item.data[0].description,
-    url: item.links[0].href,
+    id: item.date,
+    title: item.title,
+    description: item.explanation,
+    url: item.hdurl || item.url,
     type: 'space'
   };
 };
