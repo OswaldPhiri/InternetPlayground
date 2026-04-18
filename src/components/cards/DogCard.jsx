@@ -64,60 +64,66 @@ const DogCard = ({ initialData }) => {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="glass-card card-hover p-6 flex flex-col h-full"
+      className="premium-card premium-card-hover group p-6 flex flex-col h-full rounded-[2rem] border-blue-500/0 hover:border-blue-500/20"
     >
-      <div className="flex justify-between items-start mb-4">
-        <div>
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <Dog className="w-5 h-5 text-blue-500 dark:text-blue-400" />
-            Random Dog
-          </h3>
-          <p className="text-slate-600 dark:text-slate-400 text-sm">Show me a dog</p>
+      <div className="flex justify-between items-start mb-6">
+        <div className="flex items-center gap-4">
+          <div className="p-3 bg-blue-500/10 rounded-2xl group-hover:bg-blue-500 group-hover:text-white transition-all duration-500">
+            <Dog className="w-6 h-6" />
+          </div>
+          <div>
+            <h3 className="text-xl font-black text-slate-800 dark:text-white leading-tight uppercase italic tracking-tighter">
+              K-9 Explorer
+            </h3>
+            <p className="text-blue-500 font-bold text-[10px] uppercase tracking-[0.2em]">Canine Registry</p>
+          </div>
         </div>
         <div className="flex gap-2">
-          <button onClick={handleFavorite} className={`p-2 rounded-full transition-colors ${isFavorite ? 'text-pink-500 bg-pink-500/10' : 'text-slate-500 dark:text-slate-400 hover:text-pink-500'}`}>
+          <button onClick={handleFavorite} className={`p-2.5 rounded-xl transition-all ${isFavorite ? 'text-pink-500 bg-pink-500/10 scale-110' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-pink-500'}`}>
             <Heart className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
           </button>
-          <button onClick={handleShare} className="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+          <button onClick={handleShare} className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-blue-500 transition-all">
             <Share2 className="w-5 h-5" />
           </button>
         </div>
       </div>
 
-      <div className="flex-grow flex items-center justify-center min-h-[200px] relative overflow-hidden rounded-xl bg-slate-200/50 dark:bg-slate-800/50">
+      <div className="flex-grow flex items-center justify-center min-h-[240px] relative overflow-hidden rounded-[1.5rem] bg-slate-900 shadow-inner group-hover:shadow-blue-500/10 transition-all duration-500">
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent opacity-60 z-10" />
         {loading ? (
           <Skeleton className="absolute inset-0 w-full h-full" />
         ) : (
           <AnimatePresence mode='wait'>
             <motion.img 
               key={data?.url}
-              initial={{ opacity: 0, scale: 1.1 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, scale: 1.1, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, scale: 0.9 }}
               src={data?.url} 
               alt="Random dog"
-              className="w-full h-full object-cover aspect-video cursor-pointer"
+              className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-700"
               onClick={() => navigate('/dog')}
             />
           </AnimatePresence>
         )}
+        <div className="absolute bottom-4 left-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span className="text-[10px] font-black uppercase text-white tracking-widest bg-blue-600 px-2 py-1 rounded-md">HQ Image</span>
+        </div>
       </div>
 
-      <div className="mt-6 flex gap-3">
+      <div className="mt-8 flex gap-3">
         <button 
           onClick={fetchDog}
           disabled={loading}
-          className="flex-grow bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-semibold py-2 px-4 rounded-xl transition-all shadow-lg shadow-blue-900/20 disabled:opacity-50 flex items-center justify-center gap-2"
+          className="flex-grow btn-premium bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-blue-600 dark:hover:bg-blue-50 disabled:opacity-50"
         >
           <RefreshCcw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-          Show me a dog
+          Generate New
         </button>
         <button 
           onClick={handleDownload}
-          className="p-2 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl transition-colors"
-          title="Download image"
+          className="p-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-[1.25rem] transition-all hover:scale-110"
+          title="Download asset"
         >
           <Download className="w-5 h-5" />
         </button>
